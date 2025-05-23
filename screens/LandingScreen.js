@@ -30,7 +30,7 @@ export default function LandingScreen({ navigation }) {
           style={styles.button}
           onPress={() => navigation.navigate("Home")}
         >
-          <Text style={styles.buttonText}>Start cooking</Text>
+          <Text style={styles.buttonText}>Pişirmeye Başla!</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>

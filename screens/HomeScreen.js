@@ -15,7 +15,7 @@ import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { SafeAreaView } from "react-native-safe-area-context";
 import MealCard from "../components/MealCard";
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
   const [meals, setMeals] = useState([]);
   const [visibleCount, setVisibleCount] = useState(5);
   const [searchTerm, setSearchTerm] = useState("");
@@ -47,23 +47,27 @@ export default function HomeScreen() {
   const visibleMeals = filteredMeals.slice(0, visibleCount);
 
   const renderCard = ({ item }) => (
-    <View style={styles.card}>
-      <Image source={{ uri: item.strMealThumb }} style={styles.image} />
-      <View style={styles.cardBody}>
-        <Text style={styles.mealName}>{item.strMeal}</Text>
-        <View style={styles.row}>
-          <Ionicons name="earth-outline" size={14} color="#888" />
-          <Text style={styles.meta}> {item.strArea}</Text>
-          <MaterialCommunityIcons
-            name="food-outline"
-            size={14}
-            color="#888"
-            style={{ marginLeft: 10 }}
-          />
-          <Text style={styles.meta}> {item.strCategory}</Text>
+    <TouchableOpacity
+      onPress={() => navigation.navigate("RecipeDetail", { meal: item })}
+    >
+      <View style={styles.card}>
+        <Image source={{ uri: item.strMealThumb }} style={styles.image} />
+        <View style={styles.cardBody}>
+          <Text style={styles.mealName}>{item.strMeal}</Text>
+          <View style={styles.row}>
+            <Ionicons name="earth-outline" size={14} color="#888" />
+            <Text style={styles.meta}> {item.strArea}</Text>
+            <MaterialCommunityIcons
+              name="food-outline"
+              size={14}
+              color="#888"
+              style={{ marginLeft: 10 }}
+            />
+            <Text style={styles.meta}> {item.strCategory}</Text>
+          </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 
   return (
@@ -100,7 +104,7 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, paddingHorizontal: 36, backgroundColor: "#fff" },
+  container: { flex: 1, paddingHorizontal: 30, backgroundColor: "#fff" },
   input: {
     height: 50,
     borderWidth: 1,
