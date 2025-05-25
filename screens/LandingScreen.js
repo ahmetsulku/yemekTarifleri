@@ -1,4 +1,3 @@
-// screens/LandingScreen.js
 import React from "react";
 import {
   View,
@@ -11,37 +10,36 @@ import {
 export default function LandingScreen({ navigation }) {
   return (
     <ImageBackground
-      source={require("../assets/arkaplan.png")} // kendi arka plan görselini bu şekilde koy
-      style={styles.background}
+      source={require("../assets/arkaplan.png")}
+      style={{ flex: 1 }}
       resizeMode="cover"
     >
-      <Text style={styles.topText}>★ Ahmet Sülkü | 18091607 ★</Text>
-      <View style={styles.container}>
-        <View style={styles.centerTextContainer}>
-          <Text style={styles.title}>
-            🍳{"\n"}Hadi {"\n"}Pişirelim
-          </Text>
-          <Text style={styles.subtitle}>
-            En iyi yemek tarifleri listesi şimdi elinde.
-          </Text>
+      <View style={styles.overlay}>
+        <Text style={styles.topText}>★ Ahmet Sülkü | 18091607 ★</Text>
+        <View style={styles.container}>
+          <View style={styles.centerTextContainer}>
+            <Text style={styles.title}>
+              🍳{"\n"}Hadi {"\n"}Pişirelim
+            </Text>
+            <Text style={styles.subtitle}>
+              En iyi yemek tarifleri listesi şimdi elinde.
+            </Text>
+          </View>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => navigation.navigate("Home")}
+          >
+            <Text style={styles.buttonText}>Pişirmeye Başla!</Text>
+          </TouchableOpacity>
         </View>
-
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => navigation.navigate("Home")}
-        >
-          <Text style={styles.buttonText}>Pişirmeye Başla!</Text>
-        </TouchableOpacity>
       </View>
     </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  background: {
+  overlay: {
     flex: 1,
-    width: "100%",
-    height: "100%",
   },
   container: {
     flex: 1,
@@ -69,10 +67,9 @@ const styles = StyleSheet.create({
   subtitle: {
     color: "#ccc",
     fontSize: 16,
-    marginTop: 10,
+    marginTop: 75,
     textAlign: "center",
-    marginBottom: "55",
-    marginTop: "75",
+    marginBottom: 55,
   },
   button: {
     backgroundColor: "#F54748",

@@ -10,13 +10,23 @@ import {
   Pressable,
 } from "react-native";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
-import { useRoute } from "@react-navigation/native";
-import { useNavigation } from "@react-navigation/native";
+import { useRoute, useNavigation } from "@react-navigation/native";
+import { useFavorites } from "../components/FavoriteContext";
 
 export default function RecipeDetailScreen() {
   const navigation = useNavigation();
   const route = useRoute();
   const { meal } = route.params;
+
+  const { toggleFavorite, isFavorited } = useFavorites();
+
+  if (!meal) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text>Tarif verisi bulunamadı.</Text>
+      </View>
+    );
+  }
 
   const [activeTab, setActiveTab] = useState("Ingredients");
 
@@ -47,8 +57,12 @@ export default function RecipeDetailScreen() {
 
       <View style={styles.header}>
         <Text style={styles.title}>{meal.strMeal}</Text>
-        <TouchableOpacity>
-          <Ionicons name="heart-outline" size={28} color="#F54748" />
+        <TouchableOpacity onPress={() => toggleFavorite(meal)}>
+          <Ionicons
+            name={isFavorited(meal) ? "heart" : "heart-outline"}
+            size={28}
+            color="#F54748"
+          />
         </TouchableOpacity>
       </View>
 
@@ -67,7 +81,6 @@ export default function RecipeDetailScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* Sekmeler */}
       <View style={styles.tabs}>
         <Pressable
           onPress={() => setActiveTab("Ingredients")}
@@ -83,7 +96,6 @@ export default function RecipeDetailScreen() {
         </Pressable>
       </View>
 
-      {/* İçerik */}
       <ScrollView
         style={{ paddingHorizontal: 20 }}
         showsVerticalScrollIndicator={false}
